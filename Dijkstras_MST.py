@@ -1,37 +1,78 @@
-def dijkstra_simple(graph, start):
-    n = len(graph)
+import java.util.*;
 
-    dist = [9999] * n
-    visited = [False] * n
+public class DijkstraEasy {
 
-    dist[start] = 0
+    public static void main(String[] args) {
 
-    for _ in range(n):
-        min_dist = 9999
-        u = -1
+        Scanner sc = new Scanner(System.in);
 
-        for i in range(n):
-            if not visited[i] and dist[i] < min_dist:
-                min_dist = dist[i]
-                u = i
+        int INF = 9999;
 
-        visited[u] = True
+        System.out.println("Enter number of nodes:");
+        int n = sc.nextInt();
 
-        for v in range(n):
-            if graph[u][v] != 0 and not visited[v]:
-                if dist[u] + graph[u][v] < dist[v]:
-                    dist[v] = dist[u] + graph[u][v]
+        int[][] graph = new int[n][n];
 
-    print("Shortest Distance from source:", dist)
+        System.out.println("Enter adjacency matrix:");
 
+        for (int i = 0; i < n; i++) {
 
-# graph (adjacency matrix)
-graph = [
-    [0, 4, 1, 0, 0],
-    [4, 0, 2, 5, 0],
-    [1, 2, 0, 8, 10],
-    [0, 5, 8, 0, 2],
-    [0, 0, 10, 2, 0]
-]
+            for (int j = 0; j < n; j++) {
 
-dijkstra_simple(graph, 0)
+                graph[i][j] = sc.nextInt();
+
+                if (graph[i][j] == -1) {
+                    graph[i][j] = INF;
+                }
+
+            }
+
+        }
+
+        int[] dist = new int[n];
+        boolean[] vis = new boolean[n];
+
+        Arrays.fill(dist, INF);
+
+        dist[0] = 0;
+
+        for (int i = 0; i < n; i++) {
+
+            int min = INF;
+            int u = -1;
+
+            // find nearest node
+            for (int j = 0; j < n; j++) {
+
+                if (!vis[j] && dist[j] < min) {
+                    min = dist[j];
+                    u = j;
+                }
+
+            }
+
+            vis[u] = true;
+
+            
+            for (int v = 0; v < n; v++) {
+
+                if (!vis[v] &&
+                        graph[u][v] != INF &&
+                        dist[u] + graph[u][v] < dist[v]) {
+
+                    dist[v] = dist[u] + graph[u][v];
+
+                }
+
+            }
+
+        }
+
+        System.out.println("Shortest Distances:");
+
+        for (int i = 0; i < n; i++) {
+            System.out.println(i + " -> " + dist[i]);
+        }
+
+    }
+}
