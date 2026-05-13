@@ -1,0 +1,111 @@
+public class ArrayAlgorithms {
+
+    List<Integer> numbers = new List<Integer>{64, 25, 12, 22, 11};
+
+
+    public Integer linearSearch(Integer target) {
+
+        for (Integer i = 0; i < numbers.size(); i++) {
+
+            if (numbers[i] == target) {
+                return i; 
+            }
+        }
+
+        return -1; 
+    }
+
+  
+    public void bubbleSort() {
+
+        Integer n = numbers.size();
+
+        for (Integer i = 0; i < n - 1; i++) {
+
+            for (Integer j = 0; j < n - i - 1; j++) {
+
+                if (numbers[j] > numbers[j + 1]) {
+
+                    Integer temp = numbers[j];
+                    numbers[j] = numbers[j + 1];
+                    numbers[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+
+    public void selectionSort() {
+
+        Integer n = numbers.size();
+
+        for (Integer i = 0; i < n - 1; i++) {
+
+            Integer minIndex = i;
+
+            for (Integer j = i + 1; j < n; j++) {
+
+                if (numbers[j] < numbers[minIndex]) {
+                    minIndex = j;
+                }
+            }
+
+            Integer temp = numbers[minIndex];
+            numbers[minIndex] = numbers[i];
+            numbers[i] = temp;
+        }
+    }
+
+    public void insertionSort() {
+
+        Integer n = numbers.size();
+
+        for (Integer i = 1; i < n; i++) {
+
+            Integer key = numbers[i];
+            Integer j = i - 1;
+
+            while (j >= 0 && numbers[j] > key) {
+
+                numbers[j + 1] = numbers[j];
+                j--;
+            }
+
+            numbers[j + 1] = key;
+        }
+    }
+
+    public void displayArray() {
+
+        System.debug('Array Values: ' + numbers);
+    }
+}
+
+
+
+DEBUG
+
+
+
+	ArrayAlgorithms obj = new ArrayAlgorithms();
+
+// Original Array
+System.debug('Original Array');
+obj.displayArray();
+
+
+// Bubble Sort
+obj.bubbleSort();
+System.debug('After Bubble Sort');
+obj.displayArray();
+
+
+// Linear Search
+Integer position = obj.linearSearch(22);
+
+if(position != -1){
+    System.debug('Element Found at Index: ' + position);
+}
+else{
+    System.debug('Element Not Found');
+}

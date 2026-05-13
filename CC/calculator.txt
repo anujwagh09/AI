@@ -1,0 +1,56 @@
+<apex:page controller="Calculator">
+    <apex:form >
+        <apex:pageBlock title="Simple Calculator">
+
+            <apex:pageBlockSection columns="1">
+                
+                <apex:inputText value="{!val1}" label="Enter First Number"/>
+                <apex:inputText value="{!val2}" label="Enter Second Number"/>
+                
+                <apex:selectList value="{!func}" size="1">
+                    <apex:selectOption itemValue="add" itemLabel="Addition"/>
+                    <apex:selectOption itemValue="sub" itemLabel="Subtraction"/>
+                    <apex:selectOption itemValue="mul" itemLabel="Multiplication"/>
+                    <apex:selectOption itemValue="div" itemLabel="Division"/>
+                </apex:selectList>
+                
+                <apex:commandButton value="Calculate" action="{!find}"/>
+                
+                <apex:outputText value="Result: {!result}" style="font-weight:bold;"/>
+                
+            </apex:pageBlockSection>
+
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
+
+
+public class Calculator {
+    public Double val1 { get; set; }
+    public Double val2 { get; set; }
+    public Double result { get; set; }
+
+    public String func { get; set; }
+
+    public void find() {
+
+        if (func == 'add') {
+            result = val1 + val2;
+        }
+        else if (func == 'sub') {
+            result = val1 - val2;
+        }
+        else if (func == 'div') {
+
+            // Check division by zero
+            if (val2 == 0) {
+                result =0;
+            } else {
+                result = val1 / val2;
+            }
+        }
+        else {
+            result = val1 * val2;
+        }
+    }
+}
