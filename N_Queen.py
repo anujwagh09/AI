@@ -1,44 +1,51 @@
-# N-Queens using Backtracking + Branch & Bound (Matrix Output)
+package aicode;
+import java.util.*;
 
-def solve_nqueens(n):
-    def print_solution(board):
-        print("\nSolution:\n")
-        for i in range(n):
-            row = ['0'] * n
-            row[board[i]] = '1'
-            print(" ".join(row))
+public class Test {
+	static int n=4;
+	static char[][] board=new char[4][4];
+	static HashSet<Integer> col=new HashSet<Integer>();
+	static HashSet<Integer> pdia=new HashSet<Integer>();
+	static HashSet<Integer> ndia=new HashSet<Integer>();
+	public static void main(String[] args) {
+		for (int i = 0; i < n;i++) {
+			for (int j = 0; j < n; j++) {
+				board[i][j]='-';
+			}
+		}
+		
+		solve(0);
+		
+		
+	}
+	public static void display() {
+		for (char[] cs : board) {
+			for (char c : cs) {
+				System.out.print(c+" ");
+			}
+			System.out.println();
+		}
+		System.out.println("================");
+	}
+	public static void solve(int row) {
+		 	if(row==n) {
+		 		display();
+		 		return;
+		 	}
+		 	for (int c = 0; c <n ; c++) {
+				if(col.contains(c)||pdia.contains(c+row)||ndia.contains(row-c)) {
+					continue;
+				}
+				col.add(c);
+				pdia.add(row+c);
+				ndia.add(row-c);
+				board[row][c]='Q';
+				solve(row+1);
+				col.remove(c);
+				pdia.remove(row+c);
+				ndia.remove(row-c);
+				board[row][c]='-';
+			}
+	}
 
-    def solve(row):
-        if row == n:
-            print_solution(board)
-            return True
-
-        for col in range(n):
-            # Branch & Bound condition
-            if not cols[col] and not diag1[row - col] and not diag2[row + col]:
-
-                # Place queen
-                board[row] = col
-                cols[col] = diag1[row - col] = diag2[row + col] = True
-
-                # Recur
-                if solve(row + 1):
-                    return True   # print only first solution
-
-                # Backtrack
-                cols[col] = diag1[row - col] = diag2[row + col] = False
-                board[row] = -1
-
-        return False
-
-    board = [-1] * n
-    cols = [False] * n
-    diag1 = [False] * (2 * n)
-    diag2 = [False] * (2 * n)
-
-    solve(0)
-
-
-# -------- Main --------
-n = int(input("Enter number of queens: "))
-solve_nqueens(n)
+}
