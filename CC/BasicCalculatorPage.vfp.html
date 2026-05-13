@@ -1,0 +1,33 @@
+<apex:page controller="BasicCalculator">
+
+    <h2>Basic Calculator</h2>
+
+    <apex:form>
+
+        Number 1:
+        <apex:inputText value="{!num1}" />
+        <br/><br/>
+
+        Number 2:
+        <apex:inputText value="{!num2}" />
+        <br/><br/>
+
+        Operation:
+        <apex:selectList value="{!operation}" size="1">
+            <apex:selectOption itemValue="Add" itemLabel="Add" />
+            <apex:selectOption itemValue="Subtract" itemLabel="Subtract" />
+            <apex:selectOption itemValue="Multiply" itemLabel="Multiply" />
+            <apex:selectOption itemValue="Divide" itemLabel="Divide" />
+        </apex:selectList>
+
+        <br/><br/>
+
+        <apex:commandButton value="Calculate" action="{!calculate}" />
+
+        <br/><br/>
+
+        <b>Result: {!result}</b>
+
+    </apex:form>
+
+</apex:page>
